@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIDSMART AI</title>
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<div class="top-strip">
+  <div class="container top-flex">
+    <div>
+      📞 +91 9876543210 | ✉️ support@bidsmartai.com
+    </div>
+    <div id="date"></div>
+  </div>
+</div>
+<header class="navbar">
+  <div class="container nav-flex"> 
+    <div class="logo">
+      <img src="./assets/images/bidsmartai_logo.png" alt="BIDSMART AI" />      
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>   
+        <li class="dropdown">
+          <a href="#" class="drop-btn">Tenders <i class="fa fa-chevron-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Active Tenders</a></li>
+            <li><a href="#">Corrigendum</a></li>
+            <li><a href="#">Tenders by Closing Date</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Circulars</a></li>
+        <li><a href="#">Reports</a></li>
+        <li><a href="#">Login</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <img src="./assets/images/banner.jpg" />
+</section>
+
+<div class="marquee-strip">
+  <marquee>New Tenders Released | AI Smart Search | Government Projects Live | Register Now</marquee>
+</div>
+
+<!-- MAIN CONTENT -->
+<section class="gov-main">
+  <div class="gov-container gov-grid">  
+    <aside class="gov-left">
+      <ul class="gov-left-menu">
+        <li>MIS Reports</li>
+        <li>Participating Sites</li>
+        <li>Tenders by Classification</li>
+        <li>PMGSY Site</li>
+        <li>Tenders Status</li>
+        <li>Downloads</li>
+        <li>Announcements</li>
+        <li>Recognitions</li>
+        <li>Debarment List</li>
+        <li>Site Compatibility</li>
+        <li>PMGSY Main Site</li>
+      </ul>
+    </aside>
+   
+    <main class="gov-center"> 
+      <div class="gov-box welcome-box">
+        <h1>Welcome to Bidsmartai System</h1>
+        <p>
+          The Bidsmartai System enables tenderers to download tender schedules free of cost and submit bids online through this portal.
+        </p>
+      </div>
+     
+      <div class="gov-box">
+        <h3 class="gov-title">Latest Tenders</h3>
+        <table class="gov-table">
+          <thead>
+            <tr>
+              <th>Tender Title</th>
+              <th>Reference No</th>
+              <th>Closing Date</th>
+              <th>Bid Opening Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Road Construction Work Bihar</td>
+              <td>BHAGALPUR-20</td>
+              <td>25-Feb-2026</td>
+              <td>25-Feb-2026</td>
+            </tr>
+
+            <tr>
+              <td>Bridge Construction Project</td>
+              <td>MGY-2025-22</td>
+              <td>28-Feb-2026</td>
+              <td>28-Feb-2026</td>
+            </tr>
+
+            <tr>
+              <td>NH Road Repair Work</td>
+              <td>NH-2026-04</td>
+              <td>05-Mar-2026</td>
+              <td>05-Mar-2026</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="latest-update">
+          <p>Latest Tenders updates every 15 mins.</p>
+          <button>More...</button>
+        </div>
+
+      </div>
+    </main>
+    
+    <aside class="gov-right">
+      <button class="gov-login-btn">Click here to Login</button>
+      <ul class="login-purpose">
+        <li><a href="#"> Online Bidder Enrollment</a></li>
+        <li> <a href="#">Generate / Forgot Password?</a> </li>
+        <li> <a href="#">Find My Nodal Officer</a> </li>
+      </ul>
+   
+      <div class="gov-box search-box">
+        <h4>Tender Search</h4>
+        <input type="text" placeholder="Tender ID / Title" />
+        <button>Go</button>
+      </div>
+     
+      <ul class="gov-help-menu">
+        <li>Help for Contractors</li>
+        <li>Information About DSC</li>
+        <li>Guidelines for Hassle Free Bid</li>
+        <li>FAQ</li>
+        <li>Feedback</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+<footer class="footer">
+  <div class="container footer-grid">  
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li> <a href="#">Home</a> </li>
+        <li><a href="#">Tenders</a></li>
+        <li><a href="#">Reports</a></li>
+        <li><a href="#">Login</a></li>
+      </ul>
+    </div>
+
+    <div>
+    <h4>Follow Us</h4>
+    <div class="social">
+    <i class="fab fa-facebook"></i>
+    <i class="fab fa-twitter"></i>
+    <i class="fab fa-linkedin"></i>
+  </div>
+
+    </div>
+  </div>
+  <p class="copyright">© 2026 BIDSMART AI. All Rights Reserved.</p>
+</footer>
+<script>
+  document.getElementById("date").innerText = new Date().toDateString();
+</script>
+
+</body>
+</html>
