@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Card from '@/components/ui/Card';
 import { useSelector } from 'react-redux';
-import { RootState } from '@reduxjs/toolkit/query';
+import { RootState } from '@/store/store';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
