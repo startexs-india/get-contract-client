@@ -1,0 +1,8 @@
+{
+  "/(public)/tenders/page": "app/(public)/tenders/page.js",
+  "/(dashboard)/company/[companyId]/page": "app/(dashboard)/company/[companyId]/page.js",
+  "/(dashboard)/company/[companyId]/engineers/page": "app/(dashboard)/company/[companyId]/engineers/page.js",
+  "/(dashboard)/company/[companyId]/equipment/page": "app/(dashboard)/company/[companyId]/equipment/page.js",
+  "/(dashboard)/company/[companyId]/directors/page": "app/(dashboard)/company/[companyId]/directors/page.js",
+  "/(dashboard)/company/[companyId]/bids/page": "app/(dashboard)/company/[companyId]/bids/page.js"
+}
