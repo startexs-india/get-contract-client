@@ -199,7 +199,7 @@ export default function BidsPage() {
         <form onSubmit={handleAddSubmit} className="space-y-4">
           <div className="space-y-4">
             <Input label="Work Name" value={addForm.workName} onChange={(e) => setAddForm({ ...addForm, workName: e.target.value })} required />
-            <Input label="Employer Name"  value={addForm.employerName} onChange={(e) => setAddForm({ ...addForm, employerName: e.target.value })} required />
+            <Input label="Employer Name" value={addForm.employerName} onChange={(e) => setAddForm({ ...addForm, employerName: e.target.value })} required />
             <Input label="Tender Value (₹)" type="number" value={addForm.tenderValue} onChange={(e) => setAddForm({ ...addForm, tenderValue: e.target.value })} min="0" />
           </div>
           <div className="flex justify-end gap-3 pt-4">
@@ -213,8 +213,8 @@ export default function BidsPage() {
       <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Edit Bid" maxWidth="md">
         <div className="space-y-4">
           <div className="space-y-4">
-            <Input label="Work Name  value={editForm.workName} onChange={(e) => setEditForm({ ...editForm, workName: e.target.value })} required />
-            <Input label="Employer Name  value={editForm.employerName} onChange={(e) => setEditForm({ ...editForm, employerName: e.target.value })} required />
+            <Input label="Work Name" value={editForm.workName} onChange={(e) => setEditForm({ ...editForm, workName: e.target.value })} required />
+            <Input label="Employer Name" value={editForm.employerName} onChange={(e) => setEditForm({ ...editForm, employerName: e.target.value })} required />
             <Input label="Tender Value (₹)" type="number" value={editForm.tenderValue} onChange={(e) => setEditForm({ ...editForm, tenderValue: e.target.value })} min="0" />
           </div>
           <div className="flex justify-end gap-3 pt-4">

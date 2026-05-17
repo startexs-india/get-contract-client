@@ -11,7 +11,7 @@ import {
 } from '@/store/api/directorApi';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import DatePicker from '@/components/ui/DatePicker.tsx';
+import DatePicker from '@/components/ui/DatePicker';
 import Modal from '@/components/ui/Modal';
 import Loader from '@/components/common/Loader';
 import toast from 'react-hot-toast';

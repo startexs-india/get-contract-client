@@ -16,7 +16,7 @@ interface Field {
 interface GenericCrudProps {
     title: string;
     fields: Field[];
-    useListQuery: (companyId: string) => any;
+    useListQuery: (companyId: string, options?: any) => any;
     useCreateMutation: () => any;
     useUpdateMutation: () => any;
     useDeleteMutation: () => any;

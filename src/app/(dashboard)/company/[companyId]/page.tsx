@@ -64,7 +64,7 @@ export default function CompanyPage() {
         e.preventDefault();
         try {
             if (companyId) {
-                await updateCompany({ id: companyId, data: formData }).unwrap();
+                await updateCompany({ companyId, data: formData }).unwrap();
                 toast.success('Company updated successfully');
                 setIsEditing(false);
                 refetch(); // refresh data
