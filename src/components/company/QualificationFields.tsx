@@ -30,7 +30,7 @@ export default function QualificationFields({ qualifications, onChange }: Qualif
     onChange(newQuals);
   };
 
-  const updateQualification = (index: number, field: keyof Qualification, value: any) => {
+  const updateQualification = <K extends keyof Qualification>(index: number, field: K, value: Qualification[K]) => {
     const newQuals = [...qualifications];
     newQuals[index][field] = value;
     onChange(newQuals);

@@ -13,7 +13,7 @@ import PreBidSection from "../TenderSections/PreBidSection";
 import PaymentsSection from "../TenderSections/PaymentsSection";
 import GeneralParticularsSection from "../TenderSections/GeneralParticularsSection";
 import TermsConditionsSection from "../TenderSections/TermsConditionsSection";
-import AttachmentsSection from "../TenderSections/AttachmentsSection.tsx";
+import AttachmentsSection from "../TenderSections/AttachmentsSection";
 import { X } from "lucide-react";
 
 interface TenderData {
