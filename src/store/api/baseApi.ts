@@ -1,5 +1,5 @@
+import encryptedBaseQuery from '@/lib/Encryptedbasequery';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import encryptedBaseQuery from '@/lib/encryptedBaseQuery';
 
 export const baseApi = createApi({
   reducerPath: 'api',
