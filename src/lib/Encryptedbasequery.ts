@@ -21,27 +21,41 @@ import {
     type FetchArgs,
     type FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
+
 import { encryptBody, decryptResponse } from '@/lib/encryption';
+import type { RootState } from '@/store/store';
 
 // ── config ────────────────────────────────────────────────────────────────────
 
-const ENCRYPTION_ENABLED = process.env.NEXT_PUBLIC_ENCRYPT_PAYLOAD === 'true';
+const ENCRYPTION_ENABLED =
+    process.env.NEXT_PUBLIC_ENCRYPT_PAYLOAD === 'true';
 
 const BYPASS_PREFIXES = ['/debug', '/health', '/public'];
 
 function isBypassed(url: string): boolean {
-    const path = url.startsWith('http') ? new URL(url).pathname : url;
-    return BYPASS_PREFIXES.some((prefix) => path.startsWith(prefix));
+    const path = url.startsWith('http')
+        ? new URL(url).pathname
+        : url;
+
+    return BYPASS_PREFIXES.some((prefix) =>
+        path.startsWith(prefix)
+    );
 }
 
 // ── raw base query (handles auth headers) ────────────────────────────────────
 
 const rawBaseQuery = fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+
     prepareHeaders: (headers, { getState }) => {
-        const token = (getState() as any).auth.token;
-        if (token) headers.set('Authorization', `Bearer ${token}`);
+        const token = (getState() as RootState).auth.token;
+
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`);
+        }
+
         headers.set('Content-Type', 'application/json');
+
         return headers;
     },
 });
@@ -55,9 +69,13 @@ const encryptedBaseQuery: BaseQueryFn<
 > = async (args, api, extraOptions) => {
 
     let modifiedArgs: FetchArgs =
-        typeof args === 'string' ? { url: args } : { ...args };
+        typeof args === 'string'
+            ? { url: args }
+            : { ...args };
 
     const url = modifiedArgs.url ?? '';
+
+    // ── encrypt request body ────────────────────────────────────────────────
 
     if (
         ENCRYPTION_ENABLED &&
@@ -74,12 +92,26 @@ const encryptedBaseQuery: BaseQueryFn<
                 error: {
                     status: 'CUSTOM_ERROR',
                     error: 'Request encryption failed',
-                } as FetchBaseQueryError,
+                },
             };
         }
     }
 
-    const result = await rawBaseQuery(modifiedArgs, api, extraOptions);
+    // ── execute request ─────────────────────────────────────────────────────
+
+    const result = await rawBaseQuery(
+        modifiedArgs,
+        api,
+        extraOptions
+    );
+
+    // ── if request failed, return immediately ──────────────────────────────
+
+    if ('error' in result) {
+        return result;
+    }
+
+    // ── decrypt response ────────────────────────────────────────────────────
 
     if (
         ENCRYPTION_ENABLED &&
@@ -89,22 +121,22 @@ const encryptedBaseQuery: BaseQueryFn<
         const responseData = result.data as Record<string, unknown>;
 
         if (
-            typeof responseData?.data === 'string' &&
+            typeof responseData.data === 'string' &&
             responseData.data.startsWith('U2Fsd')
         ) {
             try {
-                const decrypted = decryptResponse(responseData.data as string);
+                const decrypted = decryptResponse(responseData.data);
 
                 return {
-                    ...result,
                     data: decrypted,
+                    meta: result.meta,
                 };
             } catch (err) {
                 return {
                     error: {
                         status: 'CUSTOM_ERROR',
                         error: 'Response decryption failed',
-                    } as FetchBaseQueryError,
+                    },
                 };
             }
         }
