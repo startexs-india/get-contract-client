@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { useCreateCompanyMutation } from '@/store/api/companyApi';
 import { addCompanyId } from '@/store/slices/authSlice';
-import { encryptData } from '@/lib/encryption';
 import toast from 'react-hot-toast';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -36,18 +35,15 @@ export default function NewCompanyPage() {
         e.preventDefault();
         try {
             const result = await createCompany(formData).unwrap();
+            const slug: string | undefined = result?.data?.company?.slug ?? result?.data?.slug;
 
-            // Adjust this path to match your actual API response shape
-            const newId: string | undefined =
-                result?.data?.company?._id ?? result?.data?._id;
-
-            if (!newId) throw new Error('API did not return a company ID');
+            if (!slug) throw new Error('API did not return a company slug');
 
             // Patch Redux immediately — sidebar re-renders with company links, no reload needed
-            dispatch(addCompanyId(newId));
+            dispatch(addCompanyId(slug));
 
             toast.success('Company created successfully');
-            router.push(`/company/${encryptData(newId)}`);
+            router.push(`/company/${(slug)}`);
         } catch (error: any) {
             toast.error(error?.data?.message ?? error?.message ?? 'Failed to create company');
         }
