@@ -10,7 +10,7 @@ const setCookie = (token: string) => {
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     signup: builder.mutation({
-      query: (data: { email: string; password: string; fullName?: string }) => ({
+      query: (data: { name: string; email: string; password: string; phone: string }) => ({
         url: '/auth/signup',
         method: 'POST',
         body: data,
