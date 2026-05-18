@@ -27,7 +27,7 @@ import {
 const topNavigation = [
   { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
   { name: 'Tenders', href: '/tenders', icon: DocumentTextIcon },
-  { name: 'Applied Applications', href: '/applications', icon: ClipboardDocumentCheckIcon },
+  { name: 'Applied Applications', href: '/tender-applied', icon: ClipboardDocumentCheckIcon },
   { name: 'Profile', href: '/profile', icon: UserCircleIcon },
 ];
 
@@ -56,9 +56,16 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-20 transform bg-white shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      style={{ width: '280px' }}
+      className={`left-0 z-19 bg-white shadow-lg transition-transform duration-300 ease-in-out
+  ${sidebarOpen
+          ? 'translate-x-0'
+          : '-translate-x-full'
+        }
+  lg:translate-x-0`}
+      style={{
+        width: '280px',
+        height: 'calc(100vh - 64px)',
+      }}
     >
       {/* h-full + min-h-screen ensures sidebar never shrinks when submenu collapses */}
       <div className="flex flex-col h-full min-h-screen">
@@ -72,8 +79,8 @@ export default function Sidebar() {
                 key={item.name}
                 href={item.href}
                 className={`flex items-center px-2 py-2 text-sm font-medium rounded-md mb-1 ${active
-                    ? 'bg-primary-100 text-primary-900'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  ? 'bg-primary-100 text-primary-900'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                   }`}
               >
                 <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
@@ -91,10 +98,10 @@ export default function Sidebar() {
               onClick={() => hasCompany && setCompanyOpen(!companyOpen)}
               disabled={!hasCompany}
               className={`w-full flex items-center justify-between px-2 py-2 text-sm font-medium rounded-md ${isCompanyActive
-                  ? 'bg-primary-50 text-primary-700'
-                  : hasCompany
-                    ? 'text-gray-600 hover:bg-gray-50'
-                    : 'text-gray-400 cursor-not-allowed'
+                ? 'bg-primary-50 text-primary-700'
+                : hasCompany
+                  ? 'text-gray-600 hover:bg-gray-50'
+                  : 'text-gray-400 cursor-not-allowed'
                 }`}
             >
               <div className="flex items-center">
@@ -139,8 +146,8 @@ export default function Sidebar() {
                         key={child.name}
                         href={child.href}
                         className={`flex items-center px-2 py-2 text-sm rounded-md ${active
-                            ? 'bg-primary-100 text-primary-900'
-                            : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
+                          ? 'bg-primary-100 text-primary-900'
+                          : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
                           }`}
                       >
                         <child.icon className="mr-3 h-4 w-4 flex-shrink-0" />

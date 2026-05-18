@@ -51,7 +51,7 @@ const Navbar = () => {
   return (
     <div>
       <TopStrip />
-      <header className="bg-white border-b border-gray-300 sticky top-0 z-[999]">
+      <header className="bg-white border-b border-gray-300 sticky top-0 z-20">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
 
@@ -185,36 +185,65 @@ const Navbar = () => {
                 </li>
 
                 {navData.map((item: any) => {
-                  if (item.title === 'Dashboard' && !token) return null;
-                  if (item.title === 'Login' && token) return null;
+                  if (
+                    item.title === "Dashboard" &&
+                    !token
+                  )
+                    return null;
+
+                  if (
+                    item.title === "Login" &&
+                    token
+                  )
+                    return null;
+
+                  const isSpecialItem =
+                    item.title === "Login" ||
+                    item.title === "Dashboard";
 
                   return (
-                    <li key={item.id} className="relative group">
+                    <li
+                      key={item.id}
+                      className={`relative group ${isSpecialItem ? "ml-20" : ""
+                        }`}
+                    >
                       {item.children ? (
                         <>
                           <button className="flex items-center gap-2 text-gray-700 hover:text-blue-600 font-medium transition">
                             {item.title}
+
                             <FaChevronDown className="text-xs" />
                           </button>
+
                           <ul className="absolute top-full left-0 mt-3 w-52 bg-white rounded-2xl shadow-2xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
-                            {item.children.map((child: any, idx: number) => (
-                              <li key={idx}>
-                                <Link
-                                  href={child.link}
-                                  className="block px-5 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition"
-                                >
-                                  {child.title}
-                                </Link>
-                              </li>
-                            ))}
+                            {item.children.map(
+                              (child: any, idx: number) => (
+                                <li key={idx}>
+                                  <Link
+                                    href={child.link}
+                                    className="block px-5 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition"
+                                  >
+                                    {child.title}
+                                  </Link>
+                                </li>
+                              )
+                            )}
                           </ul>
                         </>
                       ) : (
                         <Link
                           href={item.link}
-                          className="text-gray-700 hover:text-blue-600 font-medium transition"
+                          className={`transition ${item.title === "Dashboard"
+                            ? "flex items-center gap-2 px-2 py-2 rounded-xl text-blue-600 hover:text-blue-800 font-bold"
+                            : "text-gray-700 hover:text-blue-600 font-medium"
+                            }`}
                         >
-                          {item.title}
+                          {/* Show user name instead of Dashboard */}
+                          {item.title === "Dashboard" &&
+                            token
+                            ? user?.name ||
+                            "Dashboard"
+                            : item.title}
                         </Link>
                       )}
                     </li>
