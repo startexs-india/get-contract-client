@@ -237,7 +237,7 @@ const Navbar = () => {
                   <>
                     {/* USER NAME */}
                     <Link
-                      href="/dashboard"
+                      href="/user/dashboard"
                       className="text-blue-600 hover:text-blue-800 font-bold transition"
                     >
                       {user?.name || "Dashboard"}
