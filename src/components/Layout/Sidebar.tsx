@@ -25,30 +25,30 @@ import {
 } from '@heroicons/react/24/outline';
 
 const topNavigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
-  { name: 'Tenders', href: '/tenders', icon: DocumentTextIcon },
-  { name: 'Applied Applications', href: '/tender-applied', icon: ClipboardDocumentCheckIcon },
-  { name: 'Profile', href: '/profile', icon: UserCircleIcon },
+  { name: 'Dashboard', href: '/user/dashboard', icon: HomeIcon },
+  { name: 'Tenders', href: '/user/tenders', icon: DocumentTextIcon },
+  { name: 'Applied Applications', href: '/user/tender-applied', icon: ClipboardDocumentCheckIcon },
+  { name: 'Profile', href: '/user/profile', icon: UserCircleIcon },
 ];
 
 const companyChildren = (slug: string) => [
-  { name: 'Basic Info', href: `/company/${slug}`, icon: BuildingOfficeIcon },
-  { name: 'Directors', href: `/company/${slug}/directors`, icon: UserGroupIcon },
-  { name: 'Engineers', href: `/company/${slug}/engineers`, icon: UserIcon },
-  { name: 'Equipment', href: `/company/${slug}/equipment`, icon: TruckIcon },
-  { name: 'Registrations', href: `/company/${slug}/registrations`, icon: ClipboardDocumentCheckIcon },
-  { name: 'Audits', href: `/company/${slug}/audits`, icon: ChartBarIcon },
-  { name: 'Experience Certificates', href: `/company/${slug}/experience-certificates`, icon: AcademicCapIcon },
-  { name: 'Experience Quantities', href: `/company/${slug}/experience-quantities`, icon: ScaleIcon },
-  { name: 'Existing Commitments', href: `/company/${slug}/commitments`, icon: BriefcaseIcon },
-  { name: 'My Bids', href: `/company/${slug}/bids`, icon: DocumentTextIcon },
+  { name: 'Basic Info', href: `/user/company/${slug}`, icon: BuildingOfficeIcon },
+  { name: 'Directors', href: `/user/company/${slug}/directors`, icon: UserGroupIcon },
+  { name: 'Engineers', href: `/user/company/${slug}/engineers`, icon: UserIcon },
+  { name: 'Equipment', href: `/user/company/${slug}/equipment`, icon: TruckIcon },
+  { name: 'Registrations', href: `/user/company/${slug}/registrations`, icon: ClipboardDocumentCheckIcon },
+  { name: 'Audits', href: `/user/company/${slug}/audits`, icon: ChartBarIcon },
+  { name: 'Experience Certificates', href: `/user/company/${slug}/experience-certificates`, icon: AcademicCapIcon },
+  { name: 'Experience Quantities', href: `/user/company/${slug}/experience-quantities`, icon: ScaleIcon },
+  { name: 'Existing Commitments', href: `/user/company/${slug}/commitments`, icon: BriefcaseIcon },
+  { name: 'My Bids', href: `/user/company/${slug}/bids`, icon: DocumentTextIcon },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
   const { sidebarOpen } = useSelector((state: RootState) => state.ui);
   const { slug } = useCompanyId();
-  const [companyOpen, setCompanyOpen] = useState(true);
+  const [companyOpen, setCompanyOpen] = useState(false);
 
   const hasCompany = !!slug;
   const children = hasCompany ? companyChildren(slug) : [];
@@ -61,14 +61,15 @@ export default function Sidebar() {
           ? 'translate-x-0'
           : '-translate-x-full'
         }
-  lg:translate-x-0`}
+  md:translate-x-0`}
       style={{
         width: '280px',
-        height: 'calc(100vh - 64px)',
+        height: '100vh',
       }}
     >
       {/* h-full + min-h-screen ensures sidebar never shrinks when submenu collapses */}
       <div className="flex flex-col h-full min-h-screen">
+        <div className='lg:hidden bg-[#2e5f9b] h-7'></div>
         <nav className="flex-1 px-2 py-4 overflow-y-auto">
 
           {/* Top-level links */}

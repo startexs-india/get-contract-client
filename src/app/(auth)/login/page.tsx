@@ -27,7 +27,7 @@ export default function LoginPage() {
       // result is the full API response: { success, status, data: { accessToken, user } }
       if (result?.success) {
         toast.success('Login successful');
-        router.push('/dashboard');
+        router.push('/user/dashboard');
       } else {
         toast.error(result?.message || 'Login failed');
       }
@@ -38,7 +38,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.push("/dashboard");
+      router.push("/user/dashboard");
     }
   }, []);
 

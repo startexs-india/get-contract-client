@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import {
     CalendarDays,
@@ -5,13 +6,9 @@ import {
     FileText,
     Search,
 } from "lucide-react";
-
-export const metadata = {
-    title: "Applied Tenders | BidSmartAI",
-
-    description:
-        "View and track all applied tenders and their current application status.",
-};
+import WithdrawModal from "@/components/common/WithdrawModal";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface AppliedTender {
     id: string;
@@ -99,6 +96,67 @@ const getStatusStyles = (
 };
 
 export default function AppliedTendersPage() {
+
+    // ======================
+    // STATES
+    // ======================
+
+    const [withdrawModal, setWithdrawModal] =
+        useState(false);
+
+    const [selectedTender, setSelectedTender] =
+        useState<any>(null);
+
+    const [withdrawLoading, setWithdrawLoading] =
+        useState(false);
+
+
+    // ======================
+    // OPEN MODAL
+    // ======================
+
+    const openWithdrawModal = (
+        tender: any
+    ) => {
+        setSelectedTender(tender);
+        setWithdrawModal(true);
+    };
+
+
+    // ======================
+    // WITHDRAW FUNCTION
+    // ======================
+
+    const handleWithdraw = async () => {
+        try {
+            setWithdrawLoading(true);
+
+            // API CALL HERE
+            // await withdrawTender(selectedTender.id);
+
+            console.log(
+                "Withdraw Tender:",
+                selectedTender
+            );
+
+            toast.success(
+                "Application withdrawn successfully"
+            );
+
+            setWithdrawModal(false);
+            setSelectedTender(null);
+
+        } catch (error) {
+            console.error(error);
+
+            toast.error(
+                "Failed to withdraw application"
+            );
+        } finally {
+            setWithdrawLoading(false);
+        }
+    };
+
     return (
         <main className="min-h-screen bg-slate-50">
 
@@ -107,7 +165,7 @@ export default function AppliedTendersPage() {
                 {/* Search */}
                 <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                        <h2 className="text-3xl font-bold text-slate-900">
+                        <h2 className="text-xl font-bold text-slate-900">
                             My Applications
                         </h2>
 
@@ -154,8 +212,8 @@ export default function AppliedTendersPage() {
                 </div>
 
                 {/* Table */}
-                <div className="overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-xl">
-                    <table className="w-full min-w-[1000px]">
+                <div className="w-full overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-xl">
+                    <table className="min-w-[100px] w-full">
                         <thead className="bg-slate-100">
                             <tr>
                                 <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">
@@ -193,7 +251,7 @@ export default function AppliedTendersPage() {
                                 (tender) => (
                                     <tr
                                         key={tender.id}
-                                        className="border-t border-slate-200 hover:bg-slate-50 transition"
+                                        className="border-t border-slate-200 hover:bg-slate-50 transition text-sm"
                                     >
                                         {/* Tender ID */}
                                         <td className="px-6 py-5">
@@ -252,13 +310,8 @@ export default function AppliedTendersPage() {
                                         </td>
 
                                         {/* Action */}
-                                        <td className="px-6 py-5 text-center">
-                                            <Link
-                                                href={`/tenders/${tender.id}`}
-                                                className="inline-flex items-center gap-2 rounded-xl bg-[#2e5f9b] px-4 py-2 text-sm font-medium text-white shadow hover:bg-[#084c9d] transition"
-                                            >
-                                                <Eye size={16} />
-                                            </Link>
+                                        <td className="px-6 py-5 text-center text-white ">
+                                            <button onClick={() => openWithdrawModal(tender)} className="bg-[#2e5f9b] p-2 rounded-lg">Withdraw</button>
                                         </td>
                                     </tr>
                                 )
@@ -281,6 +334,14 @@ export default function AppliedTendersPage() {
                     </table>
                 </div>
             </section>
+
+            <WithdrawModal
+                open={withdrawModal}
+                onClose={() => setWithdrawModal(false)}
+                onConfirm={handleWithdraw}
+                loading={withdrawLoading}
+                tender={selectedTender}
+            />
         </main>
     );
 }

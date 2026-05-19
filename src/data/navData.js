@@ -1,5 +1,10 @@
 export const navData = [
   {
+    id: "home",
+    title: "Home",
+    link: "/"
+  },
+  {
     id: "about",
     title: "About",
     link: "/aboutus"
@@ -38,14 +43,5 @@ export const navData = [
     title: "Circulars",
     link: "/circulars"
   },
-  {
-    id: "login",
-    title: "Login",
-    link: "/login"
-  },
-  {
-    id: "dashboard",
-    title: "Dashboard",
-    link: "/dashboard"
-  }
+
 ];

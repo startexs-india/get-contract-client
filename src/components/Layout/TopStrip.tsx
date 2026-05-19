@@ -14,7 +14,7 @@ const TopStrip = () => {
     }, [])
 
     return (
-        <section className="z-100 bg-primary text-white text-[13px] py-[5px]">
+        <section className="z-100 bg-[#2e5f9b] text-white text-[13px] py-[5px]">
             <div className="container mx-auto px-4">
                 <div className="flex justify-between">
                     <div className="font-medium flex items-center gap-[7px]">

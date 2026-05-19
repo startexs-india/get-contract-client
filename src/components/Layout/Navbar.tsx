@@ -52,7 +52,7 @@ const Navbar = () => {
     <div>
       <TopStrip />
       <header className="bg-white border-b border-gray-300 sticky top-0 z-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 py-2">
           <div className="flex justify-between items-center">
 
             {/* Left Logo */}
@@ -67,7 +67,7 @@ const Navbar = () => {
                 <img
                   src="/assets/images/bidsmartai_logo.png"
                   alt="bidsmartai"
-                  className="w-[90px] max-[900px]:w-[60px]"
+                  className="w-[100px] max-[900px]:w-[60px]"
                 />
               </Link>
             </div>
@@ -173,108 +173,99 @@ const Navbar = () => {
             </div>
 
             {/* DESKTOP MENU */}
-            <nav className="hidden lg:flex items-center">
+            <nav className="hidden lg:flex lg:text-[14px] xl:text-[16px] items-center">
               <ul ref={navRef} className="flex items-center gap-6">
-                <li>
-                  <Link
-                    href="/"
-                    className="text-gray-700 hover:text-blue-600 font-medium transition"
+                {/* NORMAL NAV ITEMS */}
+                {navData.map((item: any) => (
+                  <li
+                    key={item.id}
+                    className="relative group"
                   >
-                    Home
+                    {item.children ? (
+                      <>
+                        <button className="flex items-center gap-2 text-gray-700 hover:text-blue-600 font-medium transition">
+                          {item.title}
+
+                          <FaChevronDown className="text-xs" />
+                        </button>
+
+                        <ul className="absolute top-full left-0 mt-3 w-52 bg-white rounded-2xl shadow-2xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
+                          {item.children.map(
+                            (
+                              child: any,
+                              idx: number
+                            ) => (
+                              <li key={idx}>
+                                <Link
+                                  href={child.link}
+                                  className="block px-5 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition"
+                                >
+                                  {child.title}
+                                </Link>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </>
+                    ) : (
+                      <Link
+                        href={item.link}
+                        className="text-gray-700 hover:text-blue-600 font-medium transition"
+                      >
+                        {item.title}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+
+
+              </ul>
+            </nav>
+
+            <div className='flex gap-10'>
+              {/* RIGHT SIDE AUTH SECTION */}
+              <li className="lg:ml-10 xl:ml-20 flex items-center gap-4">
+
+                {!token ? (
+                  <Link
+                    href="/login"
+                    className="text-white rounded-lg px-3 py-1 border-2 bg-[#2e5f9b] hover:border-[#2e5f9b] font-medium transition"
+                  >
+                    Login
                   </Link>
-                </li>
-
-                {navData.map((item: any) => {
-                  if (
-                    item.title === "Dashboard" &&
-                    !token
-                  )
-                    return null;
-
-                  if (
-                    item.title === "Login" &&
-                    token
-                  )
-                    return null;
-
-                  const isSpecialItem =
-                    item.title === "Login" ||
-                    item.title === "Dashboard";
-
-                  return (
-                    <li
-                      key={item.id}
-                      className={`relative group ${isSpecialItem ? "ml-20" : ""
-                        }`}
+                ) : (
+                  <>
+                    {/* USER NAME */}
+                    <Link
+                      href="/dashboard"
+                      className="text-blue-600 hover:text-blue-800 font-bold transition"
                     >
-                      {item.children ? (
-                        <>
-                          <button className="flex items-center gap-2 text-gray-700 hover:text-blue-600 font-medium transition">
-                            {item.title}
+                      {user?.name || "Dashboard"}
+                    </Link>
 
-                            <FaChevronDown className="text-xs" />
-                          </button>
-
-                          <ul className="absolute top-full left-0 mt-3 w-52 bg-white rounded-2xl shadow-2xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
-                            {item.children.map(
-                              (child: any, idx: number) => (
-                                <li key={idx}>
-                                  <Link
-                                    href={child.link}
-                                    className="block px-5 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition"
-                                  >
-                                    {child.title}
-                                  </Link>
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        </>
-                      ) : (
-                        <Link
-                          href={item.link}
-                          className={`transition ${item.title === "Dashboard"
-                            ? "flex items-center gap-2 px-2 py-2 rounded-xl text-blue-600 hover:text-blue-800 font-bold"
-                            : "text-gray-700 hover:text-blue-600 font-medium"
-                            }`}
-                        >
-                          {/* Show user name instead of Dashboard */}
-                          {item.title === "Dashboard" &&
-                            token
-                            ? user?.name ||
-                            "Dashboard"
-                            : item.title}
-                        </Link>
-                      )}
-                    </li>
-                  );
-                })}
-
-                {/* ✅ use token from Redux directly */}
-                {token && (
-                  <li>
+                    {/* LOGOUT */}
                     <button
                       onClick={handleLogout}
                       className="px-5 py-2 rounded-xl bg-red-50 text-red-500 hover:bg-red-100 transition font-medium"
                     >
                       Logout
                     </button>
-                  </li>
+                  </>
                 )}
-              </ul>
-            </nav>
-
-            {/* Right Logo */}
-            <div className="text-center">
-              <Link href="/" className="block">
-                <img
-                  src="/assets/images/logo2.jpg"
-                  alt="new hope"
-                  className="w-[70px] max-[900px]:w-[50px] mx-auto"
-                />
-                <p className="font-semibold text-[#0088b7]">NHAASCPL</p>
-              </Link>
+              </li>
+              {/* Right Logo */}
+              <div className="text-center">
+                <Link href="/" className="block">
+                  <img
+                    src="/assets/images/logo2.jpg"
+                    alt="new hope"
+                    className="w-[70px] max-[900px]:w-[50px] mx-auto"
+                  />
+                  <p className="font-semibold text-[#0088b7]">NHAASCPL</p>
+                </Link>
+              </div>
             </div>
+
           </div>
         </div>
       </header>

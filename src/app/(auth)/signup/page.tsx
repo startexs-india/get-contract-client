@@ -28,7 +28,7 @@ export default function SignupPage() {
       const result = await signup({ name, email, password, phone }).unwrap();
       if (result?.success) {
         toast.success('Account created and logged in!');
-        router.push('/dashboard');
+        router.push('/user/dashboard');
       } else {
         toast.error(result?.message || 'Signup failed');
       }
